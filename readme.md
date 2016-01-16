@@ -1,8 +1,8 @@
 # clean-yaml-object [![Build Status](https://travis-ci.org/jamestalmage/clean-yaml-object.svg?branch=master)](https://travis-ci.org/jamestalmage/clean-yaml-object)
 
-> Cleans an object up for pretty printing.
+> Clean up an object prior to serialization.
 
-Replaces circular references, pretty prints Buffers, and numerous other enhancements. Primarily designed to serialize Errors for serialization to JSON/YAML.
+Replaces circular references, pretty prints Buffers, and numerous other enhancements. Primarily designed to prepare Errors for serialization to JSON/YAML.
 
 Extracted from [`node-tap`](https://github.com/tapjs/node-tap)
 
@@ -27,7 +27,7 @@ cleanYamlObject(new Error('foo'));
 
 ### cleanYamlObject(input, [filterFn])
 
-Returns a deep copy of `input`, 
+Returns a deep copy of `input` that is suitable for serialization. 
 
 #### input
 
@@ -37,9 +37,9 @@ Any object.
 
 #### filterFn
 
-Type: `function(propertyName, isRoot, source, target)`
+Type: `callback(propertyName, isRoot, source, target)`
 
-Optional filter function. Returning `true` will cause the property to be copied.
+Optional filter callback. Returning `true` will cause the property to be copied. Otherwise it will be skipped
 
 - `propertyName`: The property being copied.
 - `isRoot`: `true` only if `source` is the top level object passed to `copyYamlObject`

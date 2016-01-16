@@ -1,7 +1,7 @@
 {
   "name": "clean-yaml-object",
   "version": "0.0.1",
-  "description": "My flawless module",
+  "description": "Clean up an object prior to serialization",
   "license": "MIT",
   "repository": "jamestalmage/clean-yaml-object",
   "author": {
@@ -19,7 +19,13 @@
     "index.js"
   ],
   "keywords": [
-    ""
+    "serialize",
+    "clean",
+    "dedupe",
+    "circular",
+    "yaml",
+    "json",
+    "error"
   ],
   "dependencies": {},
   "devDependencies": {
