@@ -3,8 +3,6 @@ module.exports = function (object, filterFn) {
 	return cleanYamlObj(object, filterFn || defaultFilter, true, []);
 };
 
-// Copied verbatim from node-tap:
-// https://github.com/isaacs/node-tap/blob/e9fdcdec5914204e814f922e7e677aff6d1ffc9e/lib/test.js#L1076-L1159
 function cleanYamlObj(object, filter, isRoot, seen) {
 	if (object === undefined) {
 		return null;
@@ -13,6 +11,8 @@ function cleanYamlObj(object, filter, isRoot, seen) {
 	if (typeof object === 'function') {
 		return object.toString();
 	}
+
+	seen = seen.concat([object]);
 
 	if (Buffer.isBuffer(object)) {
 		return 'Buffer\n' + object.toString('hex').split('')
@@ -102,7 +102,7 @@ function cleanYamlObj(object, filter, isRoot, seen) {
 
 function setProp(propName, source, target, seen, filter) {
 	if (seen.indexOf(source[propName]) === -1) {
-		target[propName] = cleanYamlObj(source[propName], filter, false, seen.concat([source]));
+		target[propName] = cleanYamlObj(source[propName], filter, false, seen);
 	} else {
 		target[propName] = '[Circular]';
 	}

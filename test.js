@@ -89,7 +89,13 @@ test('should only destroy parent references', t => {
 	t.is(serialized.two.secondThing.thing, '[Circular]');
 });
 
-test.skip('should work on arrays', t => {
+test('works if its own parent', t => {
+	const obj = {};
+	obj.parent = obj;
+	t.same(fn(obj), {parent: '[Circular]'});
+});
+
+test('should work on arrays', t => {
 	const obj = {};
 	const common = [obj];
 	const x = [common];
