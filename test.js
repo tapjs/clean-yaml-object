@@ -111,3 +111,10 @@ test('should work on arrays', t => {
 	t.is(serialized.b.y[1][0], '[Circular]');
 	t.is(serialized.b.y[0][1], '[Circular]');
 });
+
+test('custom filter', t => {
+	t.same(
+		fn({a: 'a', b: 'b', c: 'c'}, k => k === 'c'),
+		{c: 'c'}
+	);
+});
