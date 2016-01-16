@@ -1,4 +1,4 @@
-# clean-yaml-object [![Build Status](https://travis-ci.org/jamestalmage/clean-yaml-object.svg?branch=master)](https://travis-ci.org/jamestalmage/clean-yaml-object)
+# clean-yaml-object [![Build Status](https://travis-ci.org/tapjs/clean-yaml-object.svg?branch=master)](https://travis-ci.org/tapjs/clean-yaml-object)
 
 > Clean up an object prior to serialization.
 

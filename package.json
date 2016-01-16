@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Clean up an object prior to serialization",
   "license": "MIT",
-  "repository": "jamestalmage/clean-yaml-object",
+  "repository": "tapjs/clean-yaml-object",
   "author": {
     "name": "James Talmage",
     "email": "james@talmage.io",
