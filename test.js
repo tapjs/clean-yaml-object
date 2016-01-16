@@ -34,13 +34,17 @@ test('Array holes are filled', t => {
 
 test.cb('Errors have their domain stripped', t => {
 	t.plan(2);
+
+	// These two extra properties show up in Node `0.10`
+	const filter = k => !/^(type|arguments)/.test(k);
+
 	domain.create()
 		.on('error', e => {
 			t.same(
-				Object.getOwnPropertyNames(e).sort(),
+				Object.getOwnPropertyNames(e).filter(filter).sort(),
 				['domain', 'domainThrown', 'message', 'stack']
 			);
-			t.same(Object.keys(fn(e)).sort(), ['message', 'name', 'stack']);
+			t.same(Object.keys(fn(e, filter)).sort(), ['message', 'name', 'stack']);
 			t.end();
 		})
 		.run(() => {
