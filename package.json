@@ -1,6 +1,6 @@
 {
   "name": "clean-yaml-object",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Clean up an object prior to serialization",
   "license": "MIT",
   "repository": "tapjs/clean-yaml-object",
