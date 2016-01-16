@@ -1,4 +1,6 @@
 'use strict';
+var bufferToString = require('buffer-to-string');
+
 module.exports = function (object, filterFn) {
 	return cleanYamlObj(object, filterFn || defaultFilter, true, []);
 };
@@ -13,20 +15,7 @@ function cleanYamlObj(object, filter, isRoot, seen) {
 	}
 
 	if (Buffer.isBuffer(object)) {
-		return 'Buffer\n' + object.toString('hex').split('')
-				.reduce(function (set, c) {
-					if (set.length && set[set.length - 1].length === 1) {
-						set[set.length - 1] += c;
-						if (set.length && set.length % 20 === 0) {
-							set[set.length - 1] += '\n';
-						} else {
-							set[set.length - 1] += ' ';
-						}
-					} else {
-						set.push(c);
-					}
-					return set;
-				}, []).join('').trim();
+		return 'Buffer\n' + bufferToString(object);
 	}
 
 	if (object && typeof object === 'object') {

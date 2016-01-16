@@ -27,7 +27,9 @@
     "json",
     "error"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "buffer-to-string": "^0.1.0"
+  },
   "devDependencies": {
     "ava": "^0.10.0",
     "coveralls": "^2.11.6",
