@@ -12,8 +12,6 @@ function cleanYamlObj(object, filter, isRoot, seen) {
 		return object.toString();
 	}
 
-	seen = seen.concat([object]);
-
 	if (Buffer.isBuffer(object)) {
 		return 'Buffer\n' + object.toString('hex').split('')
 				.reduce(function (set, c) {
@@ -35,6 +33,8 @@ function cleanYamlObj(object, filter, isRoot, seen) {
 		if (object instanceof RegExp) {
 			return object.toString();
 		}
+
+		seen = seen.concat([object]);
 
 		var isArray = Array.isArray(object);
 
