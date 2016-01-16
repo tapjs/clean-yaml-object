@@ -49,7 +49,7 @@ function cleanYamlObj(object, filter, isRoot, seen) {
 		var set = isArray ? [] : {};
 
 		// name is typically not an ownProperty on an Error
-		if (isError && object.name && !object.hasOwnProperty('name') && filter('name', isRoot, object)) {
+		if (isError && object.name && !object.hasOwnProperty('name') && filter('name', isRoot, object, set)) {
 			setProp('name', object, set, seen, filter);
 		}
 
@@ -66,7 +66,7 @@ function cleanYamlObj(object, filter, isRoot, seen) {
 				return set;
 			}
 
-			if (!filter(k, isRoot, object)) {
+			if (!filter(k, isRoot, object, set)) {
 				return set;
 			}
 
@@ -79,27 +79,6 @@ function cleanYamlObj(object, filter, isRoot, seen) {
 	return object;
 }
 
-/*
- var stack = null;
-
- ...
-
- // put this in filter
-
- if (isRoot && k === 'stack') {
-  stack = object[k];
-  return set;
- }
-
-....
-
- if (stack) {
- newObj.stack = stack;
- }
- return newObj;
-
- */
-
 function setProp(propName, source, target, seen, filter) {
 	if (seen.indexOf(source[propName]) === -1) {
 		target[propName] = cleanYamlObj(source[propName], filter, false, seen);
@@ -108,10 +87,6 @@ function setProp(propName, source, target, seen, filter) {
 	}
 }
 
-function defaultFilter(k, isRoot, object) {
-	if (isRoot && (k === 'todo' || k === 'skip')) {
-		return false;
-	}
-
-	return !(isRoot && k === 'at' && !object[k]);
+function defaultFilter() {
+	return true;
 }
