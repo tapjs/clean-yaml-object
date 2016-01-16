@@ -1,4 +1,4 @@
-# clean-yaml-object [![Build Status](https://travis-ci.org/tapjs/clean-yaml-object.svg?branch=master)](https://travis-ci.org/tapjs/clean-yaml-object)
+# clean-yaml-object [![Build Status](https://travis-ci.org/tapjs/clean-yaml-object.svg?branch=master)](https://travis-ci.org/tapjs/clean-yaml-object) [![Coverage Status](https://coveralls.io/repos/tapjs/clean-yaml-object/badge.svg?branch=master&service=github)](https://coveralls.io/github/tapjs/clean-yaml-object?branch=master)
 
 > Clean up an object prior to serialization.
 

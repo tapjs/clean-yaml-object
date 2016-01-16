@@ -30,6 +30,7 @@
   "dependencies": {},
   "devDependencies": {
     "ava": "^0.10.0",
+    "coveralls": "^2.11.6",
     "nyc": "^5.3.0",
     "xo": "^0.12.1"
   }
