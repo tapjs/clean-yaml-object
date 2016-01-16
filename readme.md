@@ -1,7 +1,10 @@
 # clean-yaml-object [![Build Status](https://travis-ci.org/jamestalmage/clean-yaml-object.svg?branch=master)](https://travis-ci.org/jamestalmage/clean-yaml-object)
 
-> My flawless module
+> Cleans an object up for pretty printing.
 
+Replaces circular references, pretty prints Buffers, and numerous other enhancements. Primarily designed to serialize Errors for serialization to JSON/YAML.
+
+Extracted from [`node-tap`](https://github.com/tapjs/node-tap)
 
 ## Install
 
@@ -15,30 +18,33 @@ $ npm install --save clean-yaml-object
 ```js
 const cleanYamlObject = require('clean-yaml-object');
 
-cleanYamlObject('unicorns');
-//=> 'unicorns & rainbows'
+cleanYamlObject(new Error('foo'));
+//=> {name: 'Error', message: 'foo', stack: ...}
 ```
 
 
 ## API
 
-### cleanYamlObject(input, [options])
+### cleanYamlObject(input, [filterFn])
+
+Returns a deep copy of `input`, 
 
 #### input
 
-Type: `string`
+Type: `*`
 
-Lorem ipsum.
+Any object.
 
-#### options
+#### filterFn
 
-##### foo
+Type: `function(propertyName, isRoot, source, target)`
 
-Type: `boolean`  
-Default: `false`
+Optional filter function. Returning `true` will cause the property to be copied.
 
-Lorem ipsum.
-
+- `propertyName`: The property being copied.
+- `isRoot`: `true` only if `source` is the top level object passed to `copyYamlObject`
+- `source`: The source from which `source[propertyName]` will be copied.
+- `target`: The target object.
 
 ## License
 
