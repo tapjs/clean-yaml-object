@@ -32,6 +32,11 @@ test('Array holes are filled', t => {
 	t.same(fn(array), ['a', null, null, null, 'c']);
 });
 
+test('Arrays with a single float are safe', t => {
+	const array = [1.5];
+	t.same(fn(array), [1.5]);
+});
+
 test.cb('Errors have their domain stripped', t => {
 	t.plan(2);
 
