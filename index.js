@@ -38,7 +38,7 @@ function cleanYamlObj(object, filter, isRoot, seen) {
 		var set = isArray ? [] : {};
 
 		// name is typically not an ownProperty on an Error
-		if (isError && object.name && !object.hasOwnProperty('name') && filter('name', isRoot, object, set)) {
+		if (isError && object.name && !{}.hasOwnProperty.call(object, 'name') && filter('name', isRoot, object, set)) {
 			setProp('name', object, set, seen, filter);
 		}
 

@@ -1,6 +1,6 @@
+import domain from 'domain'; // eslint-disable-line no-restricted-imports
 import test from 'ava';
 import fn from './';
-import domain from 'domain';
 
 test('undefined === null', t => t.is(fn(undefined), null));
 
@@ -8,7 +8,7 @@ test('fn === fn.toString()', t => {
 	function toStr() {
 		return 'foo';
 	}
-	t.ok(/function toStr\(\) {[\s\n]+return 'foo'/m.test(fn(toStr)));
+	t.truthy(/function toStr\(\) {[\s\n]+return 'foo'/m.test(fn(toStr)));
 });
 
 test('Buffer outputs hex representation', t => {
@@ -29,12 +29,12 @@ test('regExp === regExp.toString()', t => t.is(fn(/foo|bar/), '/foo|bar/'));
 test('Array holes are filled', t => {
 	const array = ['a'];
 	array[4] = 'c';
-	t.same(fn(array), ['a', null, null, null, 'c']);
+	t.deepEqual(fn(array), ['a', null, null, null, 'c']);
 });
 
 test('Arrays with a single float are safe', t => {
 	const array = [1.5];
-	t.same(fn(array), [1.5]);
+	t.deepEqual(fn(array), [1.5]);
 });
 
 test.cb('Errors have their domain stripped', t => {
@@ -45,11 +45,11 @@ test.cb('Errors have their domain stripped', t => {
 
 	domain.create()
 		.on('error', e => {
-			t.same(
+			t.deepEqual(
 				Object.getOwnPropertyNames(e).filter(filter).sort(),
 				['domain', 'domainThrown', 'message', 'stack']
 			);
-			t.same(Object.keys(fn(e, filter)).sort(), ['message', 'name', 'stack']);
+			t.deepEqual(Object.keys(fn(e, filter)).sort(), ['message', 'name', 'stack']);
 			t.end();
 		})
 		.run(() => {
@@ -101,7 +101,7 @@ test('should only destroy parent references', t => {
 test('works if its own parent', t => {
 	const obj = {};
 	obj.parent = obj;
-	t.same(fn(obj), {parent: '[Circular]'});
+	t.deepEqual(fn(obj), {parent: '[Circular]'});
 });
 
 test('should work on arrays', t => {
@@ -122,7 +122,7 @@ test('should work on arrays', t => {
 });
 
 test('custom filter', t => {
-	t.same(
+	t.deepEqual(
 		fn({a: 'a', b: 'b', c: 'c'}, k => k === 'c'),
 		{c: 'c'}
 	);
