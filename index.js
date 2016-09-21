@@ -30,7 +30,7 @@ function cleanYamlObj(object, filter, isRoot, seen) {
 		// Fill in any holes.  This means we lose expandos,
 		// but we were gonna lose those anyway.
 		if (isArray) {
-			object = Array.apply(null, object);
+			object = fillHoles(object);
 		}
 
 		var isError = object && typeof object === 'object' && object instanceof Error;
@@ -79,3 +79,12 @@ function setProp(propName, source, target, seen, filter) {
 function defaultFilter() {
 	return true;
 }
+
+function fillHoles(arr) {
+	var result = [];
+	for (var i = 0; i < arr.length; i++) {
+		result[i] = arr[i];
+	}
+	return result;
+}
+
